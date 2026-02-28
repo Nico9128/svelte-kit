@@ -1,59 +1,49 @@
-<script lang="ts">
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcomeFallback from '$lib/images/svelte-welcome.png';
+<script>
+	import StatCard from "./components/StatCard.svelte";
+	import BookCard from "./components/BookCard.svelte";
+	import Button from "./components/Button.svelte";
+	import { myGlobalState } from "$lib/state.svelte.js";
+	import HomePage from "./pages/HomePage.svelte";
+	import StatsPage from "./pages/StatsPage.svelte";
+	import ShelfPage from "./pages/ShelfPage.svelte";
+	import SettingsPage from "./pages/SettingsPage.svelte";
+	import EditPage from "./pages/EditPage.svelte";
+	import TimerSelect from "./pages/TimerSelectPage.svelte";
+	import ListPage from "./pages/ListPage.svelte";
+	// import TimingPage from './pages/TimingPage.svelte';
+	export let data;
+	console.log($myGlobalState.page);
+	if ($myGlobalState.default_list === "") {
+		myGlobalState.update((state) => {
+			state.default_list = "Want to Read";
+			return state;
+		});
+	}
+	console.log(data);
+	console.log("Default list:", $myGlobalState.default_list);
 </script>
 
-<svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
-</svelte:head>
+<div class="p-6 md:px-0 md:pt-16">
+	{#if $myGlobalState.editMode === true}
+		<EditPage {data} />
+	{:else if $myGlobalState.listView === true}
+		<ListPage {data} />
+	{:else}
+		{#if $myGlobalState.page === "home"}
+			<HomePage {data} />
+		{/if}
 
-<section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcomeFallback} alt="Welcome" />
-			</picture>
-		</span>
-
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
-</section>
-
-<style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
-	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
-</style>
+		{#if $myGlobalState.page === "stats"}
+			<StatsPage {data} />
+		{/if}
+		{#if $myGlobalState.page === "timer"}
+			<TimerSelect {data} />
+		{/if}
+		{#if $myGlobalState.page === "books"}
+			<ShelfPage {data} />
+		{/if}
+		{#if $myGlobalState.page === "settings"}
+			<SettingsPage {data} />
+		{/if}
+	{/if}
+</div>

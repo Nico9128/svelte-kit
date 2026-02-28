@@ -1,35 +1,39 @@
----
-title: SvelteKit
-description: A simple SvelteKit app
-tags:
-  - svelte
-  - typescript
-  - tailwind
----
+# sv
 
-# SvelteKit Example
+Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
 
-This example is a simple [SvelteKit](https://svelte.dev/) app.
+## Creating a project
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/svelte-kit)
+If you're seeing this, you've probably already done this step. Congrats!
 
-## ✨ Features
+```sh
+# create a new project in the current directory
+npx sv create
 
-- Svelte 5
-- TypeScript
-- Tailwind
+# create a new project in my-app
+npx sv create my-app
+```
 
-## 💁‍♀️ How to use
+## Developing
 
-- Install dependencies `npm ci`
-- Connect to your Railway project `railway link`
-- Start the development server `railway run npm run dev`
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-## 📝 Notes
+```sh
+npm run dev
 
-This example was created by running `npx sv create svelteapp` And then following our guide to set it up for production readiness - 
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
 
-https://docs.railway.app/guides/sveltekit
+## Building
 
-Please see the [official
-documentation](https://svelte.dev/docs/kit/creating-a-project) for more info.
+To create a production version of your app:
+
+```sh
+npm run build
+```
+
+You can preview the production build with `npm run preview`.
+
+> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+# bookshelf
